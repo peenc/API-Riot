@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmls:th="http://thymeleaf.org/" xmls.layout="http://www.utraq.net.nz/thymeleaf/layourt"
+      xmlns:xmls="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>API Riot</title>
+</head>
+<body>
+<tr th:each="invocador : ${invocador}">
+
+    <div>Nome de Invocador
+        <span style="font-style:inherit;color: blue;"
+                                  th:text="${invocador.name}"> </span>
+    </div>
+    <div>Level <span style="font-style:inherit; color: blue;"
+        th:text="${invocador.summonerLevel}"> </span>
+    </div>
+
+
+
+</tr>
+</body>
+</html>
