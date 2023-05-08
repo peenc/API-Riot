@@ -22,6 +22,11 @@ public class SummonerDTO {
 		this.puuid = puuid;
 		this.summonerLevel = summonerLevel;
 	}
+	
+	public boolean estaVazia() {
+        return accountId == null;
+    }
+	
 	public String getAccountId() {
 		return accountId;
 	}

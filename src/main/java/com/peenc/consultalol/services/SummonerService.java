@@ -24,6 +24,7 @@ public class SummonerService {
 	public SummonerDTO getSummoner(String name) throws JsonMappingException, JsonProcessingException {
 		String jsonResponse = service.getJsonFromExternalApi("https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"+ name + service.getKey());
 		SummonerDTO summoner = objectMapper.readValue(jsonResponse, SummonerDTO.class);
+		
 		return summoner;
 	}
 	

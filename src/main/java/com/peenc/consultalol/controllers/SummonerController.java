@@ -7,14 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.peenc.consultalol.models.LeagueEntryDTO;
 import com.peenc.consultalol.models.SummonerDTO;
 import com.peenc.consultalol.services.SummonerService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class SummonerController {
@@ -38,6 +38,15 @@ public class SummonerController {
 	
 	@PostMapping("/")
 	public String findByNameInvocador(String name) throws JsonProcessingException {
+		if(name == "") {
+			return "redirect:/";
+		}
+		try {
+			SummonerDTO invocador = ss.getSummoner(name); 
+		}catch(Exception e){
+				return "redirect:/";
+		}		
+		
 		return "redirect:/invocador/" + name;
 	}
 	@GetMapping("/invocador/{name}")
