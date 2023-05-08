@@ -2,7 +2,7 @@
 header.masthead {
     position: relative;
     background-color: #343a40;
-    background: url("img/kat.jpg") no-repeat center center;
+    background-image: no-repeat center center;
     background-size: auto;
     background-size: cover;
     padding-top: 8rem;

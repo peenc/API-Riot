@@ -34,4 +34,5 @@ public class SummonerService {
 		List<LeagueEntryDTO> list =  Arrays.asList(ledto);
 		return list;
 	}
+	
 }
