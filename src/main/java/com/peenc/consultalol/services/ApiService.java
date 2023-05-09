@@ -17,7 +17,8 @@ public class ApiService {
     
     public String getKey() {
     	
-    	return "?api_key=RGAPI-15f352b2-4954-464a-979f-10f4f28e85c4";
+    	return "RGAPI-ca033721-207e-439a-ae26-0e2644245d90";
+    	
     }
 }
 

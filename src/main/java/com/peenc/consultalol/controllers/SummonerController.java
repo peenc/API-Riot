@@ -36,19 +36,7 @@ public class SummonerController {
 		return ResponseEntity.ok(ledto);
 	}
 	
-	@PostMapping("/")
-	public String findByNameInvocador(String name) throws JsonProcessingException {
-		if(name == "") {
-			return "redirect:/";
-		}
-		try {
-			SummonerDTO invocador = ss.getSummoner(name); 
-		}catch(Exception e){
-				return "redirect:/";
-		}		
-		
-		return "redirect:/invocador/" + name;
-	}
+	
 	@GetMapping("/invocador/{name}")
 	public ModelAndView showDataInvocador(@PathVariable("name") String name) throws JsonProcessingException {
 		ModelAndView mv = new ModelAndView("invocador");
