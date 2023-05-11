@@ -17,11 +17,7 @@ public class ApiService {
     }
     
     public String getKey() {
-    	
     	return API_KEY;
-    	
     }
-
-
 }
 

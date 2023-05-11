@@ -22,7 +22,12 @@ public class SummonerDTO {
 		this.puuid = puuid;
 		this.summonerLevel = summonerLevel;
 	}
-	
+
+	public SummonerDTO(String profileIconId, String name) {
+		this.profileIconId = profileIconId;
+		this.name = name;
+	}
+
 	public boolean estaVazia() {
         return accountId == null;
     }
@@ -78,8 +83,5 @@ public class SummonerDTO {
 				+ revisionDate + ", name=" + name + ", id=" + id + ", puuid=" + puuid + ", summonerLevel="
 				+ summonerLevel + "]";
 	}
-	
-
-
 
 }

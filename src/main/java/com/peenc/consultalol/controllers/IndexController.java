@@ -1,21 +1,18 @@
 package com.peenc.consultalol.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.peenc.consultalol.models.SummonerDTO;
 import com.peenc.consultalol.services.SummonerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class IndexController {
@@ -24,7 +21,7 @@ public class IndexController {
 	SummonerService ss;
 	
     @RequestMapping("/")
-    public String paginaIncial(){
+    public String homePage(){
         return "index";
     }
     
@@ -51,7 +48,7 @@ public class IndexController {
 	@GetMapping("/")
 	public ModelAndView showIconFreeWeek() throws JsonProcessingException {
 		ModelAndView mv = new ModelAndView("index");
-		List<String> icons = ss.getUrlListIcon(ss.getListConvertString());
+		List<String> icons = ss.getUrlListIcon();
 		mv.addObject("icons", icons);
 		return  mv;
 	}

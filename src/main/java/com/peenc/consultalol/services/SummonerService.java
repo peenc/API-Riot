@@ -1,6 +1,5 @@
 package com.peenc.consultalol.services;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,13 +23,12 @@ public class SummonerService {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	private String URL_ICON_CHAMP ="https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/";
+	private String URL_ICON_CHAMP = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/";
 	private String URL_ICON = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/";
 
 	public SummonerDTO getSummoner(String name) throws JsonMappingException, JsonProcessingException {
 		String jsonResponse = service.getJsonFromExternalApi("https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name + "?api_key=" + service.getKey());
 		SummonerDTO summoner = objectMapper.readValue(jsonResponse, SummonerDTO.class);
-
 		return summoner;
 	}
 
@@ -47,7 +45,7 @@ public class SummonerService {
 		return cii.getFreeChampionIds();
 	}
 
-	public String elo(String name, int i) throws JsonProcessingException {
+	public String getSummonerTier(String name, int i) throws JsonProcessingException {
 		SummonerDTO summoner = getSummoner(name);
 		List<LeagueEntryDTO> league = getLeague(summoner.getId());
 		return league.get(i).getTier();
@@ -65,11 +63,21 @@ public class SummonerService {
 		return listaStrings;
 	}
 
-	public List<String> getUrlListIcon(List<String> list){
-		List<String> listaUrl = list.stream()
-				.map(s -> "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/" + s + ".png")
+	public List<String> getUrlListIcon() throws JsonProcessingException {
+		List<String> listaUrl = getFreeWeek().stream()
+				.map(s -> URL_ICON_CHAMP + s + ".png")
 				.collect(Collectors.toList());
 		return listaUrl;
 	}
 
+	public String getSummonerRank(String name, int i) throws JsonProcessingException {
+		SummonerDTO summoner = getSummoner(name);
+		List<LeagueEntryDTO> league = getLeague(summoner.getId());
+		return league.get(i).getRank();
+	}
+	public int getSummonerLeaguePoints(String name, int i) throws JsonProcessingException {
+		SummonerDTO summoner = getSummoner(name);
+		List<LeagueEntryDTO> league = getLeague(summoner.getId());
+		return league.get(i).getLeaguePoints();
+	}
 }
