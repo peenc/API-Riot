@@ -4,14 +4,14 @@ package com.peenc.consultalol.models;
 public class SummonerDTO {
 	
 	private String accountId;
-	private Integer profileIconId;
+	private String profileIconId;
 	private Long revisionDate;
 	private String name;
 	private String id;
 	private String puuid;
 	private Long summonerLevel;
 	
-	public SummonerDTO(String accountId, Integer profileIconId, Long revisionDate, String name, String id, String puuid,
+	public SummonerDTO(String accountId, String profileIconId, Long revisionDate, String name, String id, String puuid,
 			Long summonerLevel) {
 		super();
 		this.accountId = accountId;
@@ -33,10 +33,10 @@ public class SummonerDTO {
 	public void setAccountId(String accountId) {
 		this.accountId = accountId;
 	}
-	public Integer getProfileIconId() {
+	public String getProfileIconId() {
 		return profileIconId;
 	}
-	public void setProfileIconId(Integer profileIconId) {
+	public void setProfileIconId(String profileIconId) {
 		this.profileIconId = profileIconId;
 	}
 	public Long getRevisionDate() {

@@ -1,6 +1,8 @@
 package com.peenc.consultalol.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class SummonerController {
 	
 	@GetMapping("/teste/invocador/{name}")
 	public ResponseEntity<SummonerDTO> findByName(@PathVariable("name") String name) throws JsonMappingException, JsonProcessingException{
-		SummonerDTO summoner = ss.getSummoner(name);	
+		SummonerDTO summoner = ss.getSummoner(name);
 		return ResponseEntity.ok(summoner);	
 		}
 	
@@ -37,15 +39,23 @@ public class SummonerController {
 	}
 	
 	
-	@GetMapping("/invocador/{name}")
+	@GetMapping("/{name}")
 	public ModelAndView showDataInvocador(@PathVariable("name") String name) throws JsonProcessingException {
 		ModelAndView mv = new ModelAndView("invocador");
+
+		// criar uma classe para pegar as informaçoes
+		String eloRankedFlex = ss.elo(ss.getSummoner(name).getName(),0);
+		String eloRankedSolo = ss.elo(ss.getSummoner(name).getName(),1);
 		SummonerDTO invocador = ss.getSummoner(name);
+
 		mv.addObject("invocador",invocador);
+		String nameImage = ss.getUrlImage(name);
+		mv.addObject("tes", nameImage);
+		// verificar quando nao tiver elo
+		mv.addObject("eloFlex",eloRankedFlex);
+		mv.addObject("eloSolo",eloRankedSolo);
+
 		return  mv;
 	}
-
-
-
 
 }
