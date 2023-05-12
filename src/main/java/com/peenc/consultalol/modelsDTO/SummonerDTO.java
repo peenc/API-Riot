@@ -1,4 +1,4 @@
-package com.peenc.consultalol.models;
+package com.peenc.consultalol.modelsDTO;
 
 
 public class SummonerDTO {

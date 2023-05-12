@@ -1,9 +1,7 @@
 package com.peenc.consultalol.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.peenc.consultalol.models.SummonerDTO;
-import com.peenc.consultalol.services.SummonerService;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,13 +10,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.peenc.consultalol.modelsDTO.SummonerDTO;
+import com.peenc.consultalol.services.IndexService;
+import com.peenc.consultalol.services.SummonerService;
 
 @Controller
 public class IndexController {
 
 	@Autowired
 	SummonerService ss;
+	
+	@Autowired
+	IndexService is;
 	
     @RequestMapping("/")
     public String homePage(){
@@ -31,7 +36,7 @@ public class IndexController {
 			return "redirect:/";
 		}
 		try {
-			SummonerDTO invocador = ss.getSummoner(name); 
+			SummonerDTO invocador = ss.getSummonerDTO(name); 
 		}catch(Exception e){
 				return "redirect:/";
 		}		
@@ -41,14 +46,14 @@ public class IndexController {
     
     @GetMapping("/teste")
     public ResponseEntity<List<Integer>> freeWeek() throws JsonMappingException, JsonProcessingException{
-    	List<Integer> list = ss.getFreeWeek();
+    	List<Integer> list = is.getFreeWeek();
     	return ResponseEntity.ok(list);
     	
     }
 	@GetMapping("/")
 	public ModelAndView showIconFreeWeek() throws JsonProcessingException {
 		ModelAndView mv = new ModelAndView("index");
-		List<String> icons = ss.getUrlListIcon();
+		List<String> icons = is.getUrlListIcon();
 		mv.addObject("icons", icons);
 		return  mv;
 	}
