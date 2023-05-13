@@ -11,26 +11,23 @@
 </head>
 
 <body style="background-image:url(img/yasuo.jpg);background-size: 100%;">
-	<div class="card" style="width: 18rem;">
+	<div class="card" style="width: 18rem; position: center; margin: auto;">
 		<p class="card-text" th:each="invocador : ${invocador}">
 			<img th:src="${invocador.nameImage}" class="card-img-top" alt="...">
-		<div class="card-body">
-
-			<div>Nome de Invocador <span style="font-style:inherit;color: blue;" th:text="${invocador.name}"> </span>
+			<div class="card-body">
+			<div>Summoner <span style="font-style:inherit;color: blue;" th:text="${invocador.name}"> </span>
 			</div>
 			<div> Level <span style="font-style:inherit; color: blue;" th:text="${invocador.summonerLevel}"> </span>
 			</div>
-			<tbody>
-
 				<tr th:each="rank :${ranks}">
 				
 					<div><span th:text="${rank.queue}"> </span><span style="font-style:inherit; color: blue;" th:text=" ${rank.tier}"> </span>
 						<span style="font-style:inherit; color: Black;" th:text=" ${rank.name} "></span>
 						<span style="font-style:inherit; color: Black;" th:text=" ${rank.pdl} "> </span> PDL
 					</div>
-					
+					<img th:src="${rank.nameImageTier}" width="100" height="100">
 					</p>
-
+				</tr>
 		</div>
 	</div>
 </body>

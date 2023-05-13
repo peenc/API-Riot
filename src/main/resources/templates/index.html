@@ -23,7 +23,7 @@
                             <form  method="post">
                                 <div class="row">
                                     <div class="col">
-                                        <input class="form-control form-control-lg" type="text" placeholder="Digite o nome do invocador" name="name"/>
+                                        <input class="form-control form-control-lg" type="text" placeholder="Enter the nick of the summoner" name="name"/>
                                     </div>
                                     <button type="submit" class="btn btn-primary">Search</button>
                                 </div>
@@ -36,8 +36,10 @@
         <br>
             <h2>free champ rotation</h2>
         <br>
+        <table>
             <tr th:each="icon: ${icons}">
                 <img th:src="${icon}">
             </tr>
+        </table>
     </body>
 </html>

@@ -6,15 +6,17 @@ public class Rank {
 	private String tier;
 	private Integer pdl;
 	private String queue;
+	private String nameImageTier;
 	
 	
 	
-	public Rank(String name, String tier, Integer pdl, String queue) {
+	public Rank(String name, String tier, Integer pdl, String queue, String nameImageTier) {
 		super();
 		this.name = name;
 		this.tier = tier;
 		this.pdl = pdl;
 		this.queue = queue;
+		this.nameImageTier = nameImageTier;
 	}
 	public Rank() {
 		super();
@@ -44,6 +46,12 @@ public class Rank {
 	public void setQueue(String queue) {
 		this.queue = queue;
 	}
-	
-	
+
+	public String getNameImageTier() {
+		return nameImageTier;
+	}
+
+	public void setNameImageTier(String nameImageTier) {
+		this.nameImageTier = nameImageTier;
+	}
 }

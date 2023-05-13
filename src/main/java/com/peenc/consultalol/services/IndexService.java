@@ -22,11 +22,10 @@ public class IndexService {
 	private ObjectMapper objectMapper;
 	
 	private String URL_ICON_CHAMP = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/";
-	
+	private String URL_FREEWEEK = "https://br1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=";
 	
 	public List<Integer> getFreeWeek() throws JsonMappingException, JsonProcessingException {
-		String jsonResponse = service.getJsonFromExternalApi(
-				"https://br1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=" + service.getKey());
+		String jsonResponse = service.getJsonFromExternalApi(URL_FREEWEEK + service.getKey());
 		ChampionInfoIds cii = objectMapper.readValue(jsonResponse, ChampionInfoIds.class);
 		return cii.getFreeChampionIds();
 	}

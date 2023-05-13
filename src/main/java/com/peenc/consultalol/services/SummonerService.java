@@ -25,19 +25,18 @@ public class SummonerService {
 	private ObjectMapper objectMapper;
 
 	private String URL_ICON = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/profile-icons/";
+	private String URL_BY_Name = "https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/";
+	private String URL_BY_SUMMONER = "https://br1.api.riotgames.com/lol/league/v4/entries/by-summoner/";
+	private String URL_BY_ICON_RANK = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/ranked-emblem/emblem-";
 
 	public SummonerDTO getSummonerDTO(String name) throws JsonMappingException, JsonProcessingException {
-		String jsonResponse = service
-				.getJsonFromExternalApi("https://br1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + name
-						+ "?api_key=" + service.getKey());
+		String jsonResponse = service.getJsonFromExternalApi(URL_BY_Name + name + "?api_key=" + service.getKey());
 		SummonerDTO summoner = objectMapper.readValue(jsonResponse, SummonerDTO.class);
 		return summoner;
 	}
 
 	public List<LeagueEntryDTO> getLeague(String id) throws JsonMappingException, JsonProcessingException {
-		String jsonResponse = service
-				.getJsonFromExternalApi("https://br1.api.riotgames.com/lol/league/v4/entries/by-summoner/" + id
-						+ "?api_key=" + service.getKey());
+		String jsonResponse = service.getJsonFromExternalApi(URL_BY_SUMMONER + id + "?api_key=" + service.getKey());
 		LeagueEntryDTO[] ledto = objectMapper.readValue(jsonResponse, LeagueEntryDTO[].class);
 		List<LeagueEntryDTO> list = Arrays.asList(ledto);
 		return list;
@@ -57,6 +56,8 @@ public class SummonerService {
 		rankSoloDuo.setName(league.get(1).getRank());
 		rankSoloDuo.setPdl(league.get(1).getLeaguePoints());
 		rankSoloDuo.setQueue("Ranked Solo/Duo ");
+		rankFlex.setNameImageTier(URL_BY_ICON_RANK+league.get(0).getTier().toLowerCase()+".png");
+		rankSoloDuo.setNameImageTier(URL_BY_ICON_RANK+league.get(1).getTier().toLowerCase()+".png");
 
 		list.add(rankFlex);
 		list.add(rankSoloDuo);
@@ -80,6 +81,5 @@ public class SummonerService {
 
 		summoner.setRanks(getSummonerRank(name));
 		return summoner;
-
 	}
 }

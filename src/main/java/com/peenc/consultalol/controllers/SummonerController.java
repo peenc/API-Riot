@@ -35,10 +35,7 @@ public class SummonerController {
 		List<LeagueEntryDTO> ledto = ss.getLeague(summoner.getId());
 		return ResponseEntity.ok(ledto);
 	}
-	
-	
-	
-	// refatorar esse metodo
+
 	@GetMapping("/{name}")
 	public ModelAndView showDataInvocador(@PathVariable("name") String name) throws JsonProcessingException {
 		ModelAndView mv = new ModelAndView("invocador");
