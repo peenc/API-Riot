@@ -11,6 +11,9 @@
                 text-align: center;
                 color: white;
             }
+            table.center {
+                margin: auto;
+            }
         </style>
     </head>
     <body style="background-image:url(img/kat.jpg);background-size: 100%;" >
@@ -34,12 +37,18 @@
             </div>
         </header>
         <br>
-            <h2>free champ rotation</h2>
         <br>
-        <table>
-            <tr th:each="icon: ${icons}">
-                <img th:src="${icon}">
-            </tr>
+            <h2>Free champ rotation</h2>
+        <br>
+        <br>
+        <table class="center">
+            <th:block th:each="i : ${#numbers.sequence(0, icons.size()-1, 8)}">
+                <tr>
+                    <td th:each="icon : ${icons.subList(i, i+8 < icons.size() ? i+8 : icons.size())}">
+                        <img th:src="${icon}">
+                    </td>
+                </tr>
+            </th:block>
         </table>
     </body>
 </html>
