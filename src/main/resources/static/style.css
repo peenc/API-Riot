@@ -63,7 +63,7 @@ body {
 .mb-5 {
     margin-bottom: 3rem !important;
     color: white;
-    font-style: italic;
+	font-style: italic;
 }
 
 .col {
@@ -116,6 +116,12 @@ body {
         transition: none;
     }
 }
-.card{
 
+.btn-primary{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.h2-rotation{
+	font-style: italic;
 }

@@ -10,24 +10,53 @@
 	<title>API Riot</title>
 </head>
 
-<body style="background-image:url(img/yasuo.jpg);background-size: 100%;">
-	<div class="card" style="width: 18rem; position: center; margin: auto;">
+<body style="background-image:url(img/yasuo.jpg);background-size: 100%;background-repeat: no-repeat;
+    background-attachment: fixed;">
+
+
+	<button onclick="voltarPagina()" class="btn btn-primary" style="margin-top:10px;
+	margin-right: 10px; 
+	margin-left: 88%;
+	width: 10%;
+	background-color:dodgerblue; color:aliceblue;">Return</button>
+
+	<script>
+		function voltarPagina() {
+			window.history.back();
+		}
+	</script>
+
+	<div class="card"
+		style="width: 18rem; margin-left: 10px; margin-bottom: 10px; position: center; background-color:deepskyblue;">
+
 		<p class="card-text" th:each="invocador : ${invocador}">
-			<img th:src="${invocador.nameImage}" class="card-img-top" alt="...">
-			<div class="card-body">
-			<div>Summoner <span style="font-style:inherit;color: blue;" th:text="${invocador.name}"> </span>
+			<img th:src="${invocador.nameImage}" class="card-img-top" alt="..." style="border: 3px solid black;">
+		<div class="card-body ">
+			<div><span style="font-style:inherit; color:black; font-size: 150%; position:relative;top:-30px;"
+					th:text="${invocador.name}"> </span>
 			</div>
-			<div> Level <span style="font-style:inherit; color: blue;" th:text="${invocador.summonerLevel}"> </span>
+			<div style=" position:relative;top:-30px;"> Lvl <span style="font-style:inherit;  color:black;"
+					th:text="${invocador.summonerLevel}"> </span>
 			</div>
-				<tr th:each="rank :${ranks}">
-				
-					<div><span th:text="${rank.queue}"> </span><span style="font-style:inherit; color: blue;" th:text=" ${rank.tier}"> </span>
-						<span style="font-style:inherit; color: Black;" th:text=" ${rank.name} "></span>
-						<span style="font-style:inherit; color: Black;" th:text=" ${rank.pdl} "> </span> PDL
-					</div>
-					<img th:src="${rank.nameImageTier}" width="100" height="100">
-					</p>
-				</tr>
+			<tr th:each="rank :${ranks}">
+
+				<div>
+					<hr th:text="${rank.queue}">
+					</hr><span style="font-style:inherit; color:black;" th:text=" ${rank.tier}"> </span>
+					<span style="font-style:inherit; color: Black;" th:text=" ${rank.ranking} "></span>
+					<span style="font-style:inherit; color: Black;" th:text=" ${rank.pdl} "> </span> PDL
+
+
+				</div>
+				<img th:src="${rank.nameImageTier}" width="100" height="100">
+
+				<span style="font-style:inherit; color: Black;" th:text=" ${rank.wins} "> </span> Wins
+				<span style="font-style:inherit; color: Black;" th:text=" ${rank.losses} "> </span> Losses
+				<div>Winrate <span style="font-style:inherit; color: Black;" th:text=" ${rank.Winrate} "> </span> %
+				</div>
+
+				</p>
+			</tr>
 		</div>
 	</div>
 </body>

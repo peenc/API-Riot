@@ -10,14 +10,18 @@ public class Summoner {
 
 	private Long summonerLevel;
 	private List<Rank> ranks;
+	private List<String> matchs;
 	
-	public Summoner(String id, String name, String nameImage, Long summonerLevel, List<Rank> ranks) {
+	
+	public Summoner(String id, String name, String nameImage, Long summonerLevel, List<Rank> ranks,
+			List<String> matchs) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.nameImage = nameImage;
 		this.summonerLevel = summonerLevel;
 		this.ranks = ranks;
+		this.matchs = matchs;
 	}
 	public Summoner() {
 		super();
@@ -52,6 +56,12 @@ public class Summoner {
 
 	public void setRanks(List<Rank> ranks) {
 		this.ranks = ranks;
+	}
+	public List<String> getMatchs() {
+		return matchs;
+	}
+	public void setMatchs(List<String> matchs) {
+		this.matchs = matchs;
 	}
 	
 

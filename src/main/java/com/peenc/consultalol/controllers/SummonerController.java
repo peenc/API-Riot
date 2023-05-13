@@ -35,6 +35,12 @@ public class SummonerController {
 		List<LeagueEntryDTO> ledto = ss.getLeague(summoner.getId());
 		return ResponseEntity.ok(ledto);
 	}
+	
+	@GetMapping("/teste/matchs/{puuid}")
+	public ResponseEntity<List<String>> matchs(@PathVariable("puuid") String puuid) throws JsonMappingException, JsonProcessingException{	
+		List<String> ledto = ss.listMatchs(puuid);
+		return ResponseEntity.ok(ledto);
+	}
 
 	@GetMapping("/{name}")
 	public ModelAndView showDataInvocador(@PathVariable("name") String name) throws JsonProcessingException {
