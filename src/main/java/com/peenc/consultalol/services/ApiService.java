@@ -9,7 +9,7 @@ public class ApiService {
 	
 	@Autowired
     private RestTemplate restTemplate;
-    private final String  API_KEY = "RGAPI-ee15b9ae-42eb-4a21-a066-bf4a02683ba8";
+    private final String  API_KEY = "RGAPI-7c14f794-be45-4614-a909-71a5b86d907c";
 
     public String getJsonFromExternalApi(String url) {
         String jsonResponse = restTemplate.getForObject(url, String.class);
