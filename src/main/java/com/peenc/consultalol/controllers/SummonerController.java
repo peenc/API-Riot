@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -49,6 +50,20 @@ public class SummonerController {
 		mv.addObject("invocador", summoner);
 		mv.addObject("ranks", summoner.getRanks());
 		return  mv;
+	}
+	
+	@PostMapping("/{name}")
+	public String find(String name) throws JsonProcessingException {
+		if(name == "") {
+			return "redirect:/{name}";
+		}
+		try {
+			SummonerDTO invocador = ss.getSummonerDTO(name); 
+		}catch(Exception e){
+				return "redirect:/{name}";
+		}		
+		
+		return "redirect:/" + name;
 	}
 
 }

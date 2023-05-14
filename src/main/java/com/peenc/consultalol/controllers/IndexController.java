@@ -32,11 +32,13 @@ public class IndexController {
     
     @PostMapping("/")
 	public String findByNameInvocador(String name) throws JsonProcessingException {
+		SummonerDTO invocador = new SummonerDTO();
+    	
 		if(name == "") {
 			return "redirect:/";
 		}
 		try {
-			SummonerDTO invocador = ss.getSummonerDTO(name); 
+			invocador = ss.getSummonerDTO(name); 
 		}catch(Exception e){
 				return "redirect:/";
 		}		

@@ -117,11 +117,25 @@ body {
     }
 }
 
-.btn-primary{
-	margin-top: 10px;
-	margin-left: 10px;
+.btn{
+	margin-top: 1px;
+	margin-left: 1px;
+	
 }
 
 .h2-rotation{
 	font-style: italic;
 }
+
+ .column {
+        float: left;
+        width: 50%; /* Ajuste a largura das colunas conforme necessário */
+        padding: 10px; /* Adicione um espaçamento interno às colunas */
+        box-sizing: border-box; /* Inclua a largura da borda e o preenchimento na largura total */
+    }
+    
+    .row::after {
+        content: "";
+        display: table;
+        clear: both;
+    }

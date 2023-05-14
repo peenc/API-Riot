@@ -23,9 +23,8 @@ public class SummonerDTO {
 		this.summonerLevel = summonerLevel;
 	}
 
-	public SummonerDTO(String profileIconId, String name) {
-		this.profileIconId = profileIconId;
-		this.name = name;
+	public SummonerDTO() {
+		super();
 	}
 
 	public boolean estaVazia() {
@@ -74,9 +73,7 @@ public class SummonerDTO {
 	public void setSummonerLevel(Long summonerLevel) {
 		this.summonerLevel = summonerLevel;
 	}
-	public SummonerDTO() {
-		super();
-	}
+
 	@Override
 	public String toString() {
 		return "SummonerDTO [accountId=" + accountId + ", profileIconId=" + profileIconId + ", revisionDate="

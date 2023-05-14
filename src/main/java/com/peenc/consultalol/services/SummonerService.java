@@ -33,6 +33,7 @@ public class SummonerService {
 	public SummonerDTO getSummonerDTO(String name) throws JsonMappingException, JsonProcessingException {
 		String jsonResponse = service.getJsonFromExternalApi(URL_BY_Name + name + "?api_key=" + service.getKey());
 		SummonerDTO summoner = objectMapper.readValue(jsonResponse, SummonerDTO.class);
+		
 		return summoner;
 	}
 
@@ -52,16 +53,16 @@ public class SummonerService {
 		List<LeagueEntryDTO> league = getLeague(summoner.getId());
 
 		try {
-			rankSoloDuo.setTier(league.get(0).getTier());
-			rankSoloDuo.setRanking(league.get(0).getRank());
-			rankSoloDuo.setPdl(league.get(0).getLeaguePoints());
-			rankSoloDuo.setQueue("Ranked Solo/Duo ");
-			rankSoloDuo.setWins(league.get(0).getWins());
-			rankSoloDuo.setLosses(league.get(0).getLosses());
-			rankSoloDuo.setNameImageTier(URL_BY_ICON_RANK + league.get(0).getTier().toLowerCase() + ".png");
+			rankSoloDuo.setTier(league.get(1).getTier());
+			rankSoloDuo.setRanking(league.get(1).getRank());
+			rankSoloDuo.setPdl(league.get(1).getLeaguePoints());
+			rankSoloDuo.setQueue(league.get(1).getQueueType().replace("_", " "));
+			rankSoloDuo.setWins(league.get(1).getWins());
+			rankSoloDuo.setLosses(league.get(1).getLosses());
+			rankSoloDuo.setNameImageTier(URL_BY_ICON_RANK + league.get(1).getTier().toLowerCase() + ".png");
 			rankSoloDuo.Winrate();
-			if (league.get(0).getMiniSeries() != null) {
-				rankFlex.setMiniSeries(league.get(0).getMiniSeries());
+			if (league.get(1).getMiniSeries() != null) {
+				rankFlex.setMiniSeries(league.get(1).getMiniSeries());
 
 			}
 			list.add(rankSoloDuo);
@@ -70,17 +71,17 @@ public class SummonerService {
 		}
 
 		try {
-			rankFlex.setTier(league.get(1).getTier());
-			rankFlex.setRanking(league.get(1).getRank());
-			rankFlex.setPdl(league.get(1).getLeaguePoints());
-			rankFlex.setWins(league.get(1).getWins());
-			rankFlex.setLosses(league.get(1).getLosses());
+			rankFlex.setTier(league.get(0).getTier());
+			rankFlex.setRanking(league.get(0).getRank());
+			rankFlex.setPdl(league.get(0).getLeaguePoints());
+			rankFlex.setWins(league.get(0).getWins());
+			rankFlex.setLosses(league.get(0).getLosses());
 
-			rankFlex.setQueue("Ranked Flex ");
-			rankFlex.setNameImageTier(URL_BY_ICON_RANK + league.get(1).getTier().toLowerCase() + ".png");
+			rankFlex.setQueue(league.get(0).getQueueType().replace("_", " "));
+			rankFlex.setNameImageTier(URL_BY_ICON_RANK + league.get(0).getTier().toLowerCase() + ".png");
 			rankFlex.Winrate();
-			if (league.get(1).getMiniSeries() != null) {
-				rankFlex.setMiniSeries(league.get(1).getMiniSeries());
+			if (league.get(0).getMiniSeries() != null) {
+				rankFlex.setMiniSeries(league.get(0).getMiniSeries());
 			}
 			list.add(rankFlex);
 		} catch (ArrayIndexOutOfBoundsException e) {

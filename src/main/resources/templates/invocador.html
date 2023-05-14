@@ -9,16 +9,49 @@
 	<link href="static/style.css" rel="stylesheet">
 	<title>API Riot</title>
 </head>
+<style>
+	.column {
+		float: left;
+		width: 20%;
+		/* Ajuste a largura das colunas conforme necessário */
+		padding: 10px;
+		/* Adicione um espaçamento interno às colunas */
+		box-sizing: border-box;
+		/* Inclua a largura da borda e o preenchimento na largura total */
+	}
+
+	.row::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+</style>
 
 <body style="background-image:url(img/yasuo.jpg);background-size: 100%;background-repeat: no-repeat;
     background-attachment: fixed;">
 
+	<nav class="navbar" style="overflow: hidden; height:60px; border-radius:10px;">
 
-	<button onclick="voltarPagina()" class="btn btn-primary" style="margin-top:10px;
-	margin-right: 10px; 
-	margin-left: 88%;
-	width: 10%;
-	background-color:dodgerblue; color:aliceblue;">Return</button>
+		<a href="/"><button class="btn"
+				style="background-color:lightskyblue; color:rgb(0, 0, 0); border:1px solid black; border-radius:10px">Home</button></a>
+		<a href="/about"><button class="btn"
+				style="background-color:lightskyblue; color:rgb(0, 0, 0); border:1px solid black; border-radius:10px; margin-left: -180px;">About</button></a>
+		<form method="post">
+			<div class="row">
+				<div class="col">
+					<input class="form" style="width: 500px; height: 40px;border-radius: 10px;" type="text"
+						placeholder="  Enter the nick of the summoner" name="name" />
+				</div>
+				<button type="submit"
+					style="background-color:lightskyblue; color:rgb(0, 0, 0); border:1px solid black; border-radius:10px">Search</button>
+			</div>
+		</form>
+
+		<a><button onclick="voltarPagina()" class="btn"
+				style="background-color:lightskyblue; color:rgb(0, 0, 0); border:1px solid black; border-radius:10px;">Return</button></a>
+
+
+	</nav>
 
 	<script>
 		function voltarPagina() {
@@ -26,38 +59,54 @@
 		}
 	</script>
 
-	<div class="card"
-		style="width: 18rem; margin-left: 10px; margin-bottom: 10px; position: center; background-color:deepskyblue;">
-
-		<p class="card-text" th:each="invocador : ${invocador}">
-			<img th:src="${invocador.nameImage}" class="card-img-top" alt="..." style="border: 3px solid black;">
-		<div class="card-body ">
-			<div><span style="font-style:inherit; color:black; font-size: 150%; position:relative;top:-30px;"
-					th:text="${invocador.name}"> </span>
+	<div class="card mb-3"
+		style="max-height: 20%; max-width:100%;margin-left:15px; margin-right:15px; margin-bottom: 15px;margin-top:15px; background-color:lightskyblue; border-radius:10px;">
+		<div class="row g-0">
+			<div class="col-md-2" th:each="invocador : ${invocador}">
+				<img th:src="${invocador.nameImage}" class="img-fluid rounded-start" alt="..."
+					style="border-radius: 50%;">
 			</div>
-			<div style=" position:relative;top:-30px;"> Lvl <span style="font-style:inherit;  color:black;"
-					th:text="${invocador.summonerLevel}"> </span>
-			</div>
-			<tr th:each="rank :${ranks}">
+			<div class="col-md-8" style="display: flex;">
+				<div class="card-body">
+					
+					<h2>
+						<span style="font-style: inherit; color: black; position: relative;"
+							th:text="${invocador.name}"></span>
+					</h2>
+					<div>Lvl <span style="font-style: inherit; color: black;"
+							th:text="${invocador.summonerLevel}"></span></div>
 
-				<div>
-					<hr th:text="${rank.queue}">
-					</hr><span style="font-style:inherit; color:black;" th:text=" ${rank.tier}"> </span>
-					<span style="font-style:inherit; color: Black;" th:text=" ${rank.ranking} "></span>
-					<span style="font-style:inherit; color: Black;" th:text=" ${rank.pdl} "> </span> PDL
+					<table class="column">
+						<tr th:each="rank : ${ranks}">
 
+							<div class="row">
+								<div class="column" th:text="${rank.queue}">
+
+
+								</div>
+								<div class="column">
+									<span style="font-style: inherit; color: black;" th:text="${rank.tier}"></span>
+									<span style="font-style: inherit; color: black;" th:text="${rank.ranking}"></span>
+									<span style="font-style: inherit; color: black;" th:text="${rank.pdl}"></span> PDL
+									<img th:src="${rank.nameImageTier}" width="150" height="150">
+									
+								</div>
+								
+								<div class="column">
+									<span style="font-style: inherit; color: black;" th:text="${rank.wins}"></span> Wins
+									<span style="font-style: inherit; color: black;" th:text="${rank.losses}"></span>Losses
+									<span>Winrate <span style="font-style: inherit; color: black;"
+											th:text="${rank.Winrate}">
+										</span> %</span>
+								</div>
+								
+					</table>
 
 				</div>
-				<img th:src="${rank.nameImageTier}" width="100" height="100">
-
-				<span style="font-style:inherit; color: Black;" th:text=" ${rank.wins} "> </span> Wins
-				<span style="font-style:inherit; color: Black;" th:text=" ${rank.losses} "> </span> Losses
-				<div>Winrate <span style="font-style:inherit; color: Black;" th:text=" ${rank.Winrate} "> </span> %
-				</div>
-
-				</p>
-			</tr>
+			</div>
 		</div>
+
+	</div>
 	</div>
 </body>
 
