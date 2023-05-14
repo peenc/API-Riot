@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.peenc.consultalol.models.Rank;
 import com.peenc.consultalol.models.Summoner;
+import com.peenc.consultalol.modelsDTO.ChampionMasteryDTO;
 import com.peenc.consultalol.modelsDTO.LeagueEntryDTO;
 import com.peenc.consultalol.modelsDTO.SummonerDTO;
 
@@ -29,6 +30,8 @@ public class SummonerService {
 	private String URL_BY_SUMMONER = "https://br1.api.riotgames.com/lol/league/v4/entries/by-summoner/";
 	private String URL_BY_ICON_RANK = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-static-assets/global/default/ranked-emblem/emblem-";
 	private String URL_BY_MATCHS = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/";
+	private String URL_BY_CHAMPSMASTERIES = "https://br1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/";
+	private String URL_BY_SPLASHES = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/";
 	
 	public SummonerDTO getSummonerDTO(String name) throws JsonMappingException, JsonProcessingException {
 		String jsonResponse = service.getJsonFromExternalApi(URL_BY_Name + name + "?api_key=" + service.getKey());
@@ -105,6 +108,7 @@ public class SummonerService {
 		summoner.setId(summonerDTO.getId());
 		summoner.setName(summonerDTO.getName());
 		summoner.setSummonerLevel(summonerDTO.getSummonerLevel());
+		summoner.setImageTopMasteries(splashArtChampionTopMasteries(listIdChampsMasteries(summoner.getId())));
 
 		List<Rank> list = getSummonerRank(name);
 
@@ -120,6 +124,21 @@ public class SummonerService {
 		String[] string = objectMapper.readValue(jsonResponse, String[].class);
 		List<String> matchs = Arrays.asList(string);
 		return matchs;
+	}
+	
+	public List<Long> listIdChampsMasteries(String id) throws JsonMappingException, JsonProcessingException{
+		String jsonResponse = service.getJsonFromExternalApi(URL_BY_CHAMPSMASTERIES + id  + "/top?api_key=" + service.getKey());
+		ChampionMasteryDTO[] cmdto = objectMapper.readValue(jsonResponse, ChampionMasteryDTO[].class);
+		List<ChampionMasteryDTO> listCmdto = Arrays.asList(cmdto);
+		List<Long> listIdChamps = new ArrayList<>();
+		for(ChampionMasteryDTO c : listCmdto) {
+			listIdChamps.add(c.getChampionId());
+		}
+		return listIdChamps;
+	}
+	
+	public String splashArtChampionTopMasteries(List<Long> list) {
+		return URL_BY_SPLASHES + list.get(0) + "/" + list.get(0)+"000.jpg";
 	}
 	
 }

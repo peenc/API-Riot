@@ -65,5 +65,11 @@ public class SummonerController {
 		
 		return "redirect:/" + name;
 	}
+	
+	@GetMapping("/teste/champs/{id}")
+	public ResponseEntity<List<Long>> championsMasteries(@PathVariable("id") String id) throws JsonMappingException, JsonProcessingException{	
+		List<Long> idChamps = ss.listIdChampsMasteries(id);
+		return ResponseEntity.ok(idChamps);
+	}
 
 }
