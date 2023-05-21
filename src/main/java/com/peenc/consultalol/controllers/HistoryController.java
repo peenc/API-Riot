@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.io.IOException;
+import java.net.ProtocolException;
+
 @Controller
 public class HistoryController {
 
@@ -21,7 +24,7 @@ public class HistoryController {
     SummonerService summonerService;
 
     @GetMapping("/vou/aqui/{name}")
-    public ResponseEntity<Root> history(@PathVariable("name") String name) throws JsonProcessingException {
+    public ResponseEntity<Root> history(@PathVariable("name") String name) throws IOException {
         SummonerDTO summoner = summonerService.getSummonerDTO(name);
         Root root = historyService.getMatchDTO(summoner.getPuuid());
         return ResponseEntity.ok(root);
