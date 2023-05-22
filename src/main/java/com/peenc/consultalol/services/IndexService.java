@@ -17,6 +17,8 @@ public class IndexService {
 	
 	@Autowired
 	ApiService service;
+	@Autowired
+	MatchService matchService;
 
 	@Autowired
 	private ObjectMapper objectMapper;

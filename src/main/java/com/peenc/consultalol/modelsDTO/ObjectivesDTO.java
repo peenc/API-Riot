@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ObjectivesDTO {
-    public ObjectiveDTO baron;
-    public ObjectiveDTO champion;
-    public ObjectiveDTO dragon;
-    public ObjectiveDTO inhibitor;
-    public ObjectiveDTO riftHerald;
-    public ObjectiveDTO tower;
+    private ObjectiveDTO baron;
+    private ObjectiveDTO champion;
+    private ObjectiveDTO dragon;
+    private ObjectiveDTO inhibitor;
+    private ObjectiveDTO riftHerald;
+    private ObjectiveDTO tower;
 }

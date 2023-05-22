@@ -8,8 +8,8 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Data
 public class TeamDTO {
-    public ArrayList<BanDTO> bans;
-    public ObjectivesDTO objectivesDTO;
-    public int teamId;
-    public boolean win;
+    private ArrayList<BanDTO> bans;
+    private ObjectivesDTO objectives;
+    private int teamId;
+    private boolean win;
 }

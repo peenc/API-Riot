@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Data
 public class MetadataDTO {
-    public String dataVersion;
-    public String matchId;
-    public ArrayList<String> participants;
+    private String dataVersion;
+    private String matchId;
+    private ArrayList<String> participants;
 }

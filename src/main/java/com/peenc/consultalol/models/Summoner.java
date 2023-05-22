@@ -12,6 +12,8 @@ public class Summoner {
 	private List<Rank> ranks;
 	private List<String> matchs;
 	private String imageTopMasteries;
+
+	private String puuid;
 	
 	
 
@@ -72,8 +74,12 @@ public class Summoner {
 	public void setImageTopMasteries(String imageTopMasteries) {
 		this.imageTopMasteries = imageTopMasteries;
 	}
-	
 
+	public String getPuuid() {
+		return puuid;
+	}
 
-	
+	public void setPuuid(String puuid) {
+		this.puuid = puuid;
+	}
 }

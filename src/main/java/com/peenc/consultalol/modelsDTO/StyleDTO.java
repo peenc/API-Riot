@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Data
 public class StyleDTO {
-    public String description;
-    public ArrayList<SelectionDTO> selectionDTOS;
-    public int style;
+    private String description;
+    private ArrayList<SelectionDTO> selections;
+    private int style;
 }

@@ -8,6 +8,6 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Data
 public class PerksDTO {
-    public StatPerksDTO statPerksDTO;
-    public ArrayList<StyleDTO> styleDTOS;
+    private StatPerksDTO statPerks;
+    private ArrayList<StyleDTO> styles;
 }

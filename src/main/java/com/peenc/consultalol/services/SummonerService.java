@@ -32,11 +32,11 @@ public class SummonerService {
 	private String URL_BY_MATCHS = "https://americas.api.riotgames.com/lol/match/v5/matches/by-puuid/";
 	private String URL_BY_CHAMPSMASTERIES = "https://br1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/";
 	private String URL_BY_SPLASHES = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/";
-	
+
+
 	public SummonerDTO getSummonerDTO(String name) throws JsonMappingException, JsonProcessingException {
 		String jsonResponse = service.getJsonFromExternalApi(URL_BY_Name + name + "?api_key=" + service.getKey());
 		SummonerDTO summoner = objectMapper.readValue(jsonResponse, SummonerDTO.class);
-		
 		return summoner;
 	}
 
@@ -109,6 +109,7 @@ public class SummonerService {
 		summoner.setName(summonerDTO.getName());
 		summoner.setSummonerLevel(summonerDTO.getSummonerLevel());
 		summoner.setImageTopMasteries(splashArtChampionTopMasteries(listIdChampsMasteries(summoner.getId())));
+		summoner.setPuuid(summonerDTO.getPuuid());
 
 		List<Rank> list = getSummonerRank(name);
 

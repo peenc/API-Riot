@@ -6,6 +6,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class RiftHeraldDTO {
-    public boolean first;
-    public int kills;
+    private boolean first;
+    private int kills;
 }
