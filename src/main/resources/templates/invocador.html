@@ -1,104 +1,94 @@
 <!DOCTYPE html>
 <html xmls:th="http://thymeleaf.org/" xmls.layout="http://www.utraq.net.nz/thymeleaf/layourt"
-	  xmlns:xmls="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-			  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-		<link href="static/style.css" rel="stylesheet">
-		<title>Shurima</title>
-	</head>
-	<style>
-		.row::after {
-			content: "";
-			display: table;
-			clear: both;
-		}
-	</style>
-
-	<body style="background-image:url(img/ionia.jpg);background-size: 100%;background-repeat: no-repeat;
-		background-attachment: fixed;">
-		<nav class="navbar"
-			 style="background-image:url(img/ionia.jpg);overflow: hidden; height:60px; border-radius:10px; background-color: white; margin: 20px; border: 2px solid black; box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);">
-
-			<a href="/"><button class="btn"
-								style="background-color:gray; color:rgb(255, 255, 255); border:1px solid black; border-radius:10px">Home</button></a>
-			<a href="/about"><button class="btn"
-									 style="background-color:gray; color:rgb(255, 255, 255); border:1px solid black; border-radius:10px; margin-left: -180px;">About</button></a>
-			<form method="post">
-				<div class="row">
-					<div class="col">
-						<input class="form" style="width: 500px; height: 40px;border-radius: 10px;" type="text"
-							   placeholder="  Enter the nick of the summoner" name="name" />
-					</div>
-					<button type="submit"
-							style="background-color:gray; color:rgb(255, 255, 255); border:1px solid black; border-radius:10px">Search</button>
-				</div>
-			</form>
-
-			<a><button onclick="voltarPagina()" class="btn"
-					   style="background-color:gray; color:rgb(255, 255, 255); border:1px solid black; border-radius:10px;">Return</button></a>
-
-		</nav>
-		<div th:each="invocador : ${invocador}"> </div>
-		<script>
-			function voltarPagina() {
-				window.match.back();
-			}
-
-		</script>
-		<div class="card mb-3" id="card"
-			 style="max-height: 20%; max-width:100%;margin-left:15px; margin-right:15px; margin-bottom: 15px;margin-top:15px;; border: 1px solid black;  border-radius:20px; box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);">
-			<img th:src="${invocador.imageTopMasteries}"
-				 style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; height: 100%; object-fit: cover;border: 1px solid black ; border-radius:20px">
-			<div class="row g-0">
-				<div class="col-md-3">
-					<img th:src="${invocador.nameImage}" class="img-fluid rounded-start" alt="icone de invocador"
-						 style="border-radius: 50%; margin: 25px; border: 2px solid black; box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);">
-				</div>
-				<div class="col-md-8" style="display: flex;">
-					<div class="card-body">
-						<h3>
-								<span style="font-style: inherit; color: black; position: relative;font-family:Arial, Helvetica, sans-serif; font-weight: bold;"
-									  th:text="${invocador.name}"></span>
-						</h3>
-						<h4 style="color:black">Lvl <span style="font-style: inherit; color: black;"
-														  th:text="${invocador.summonerLevel}"></span></h4>
-					</div>
-					<table>
-						<tr th:each="rank : ${ranks}">
-							<div class="card"
-								 style="width: 18rem;background-color:white; opacity:70%; margin: 20px; margin-left: 40px;margin-right: 40px; border-radius: 10px; border: 2px solid black;  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);">
-								<img th:src="${rank.nameImageTier}" class="card-img-top" alt="..." width="150" height="150">
-								<div class="card-body" style="position: relative; text-align: center; font-size: 20px;">
-									<div th:text="${rank.queue}"></div>
-									<span style="font-style: inherit; " th:text="${rank.tier}"></span>
-									<span style="font-style: inherit; " th:text="${rank.ranking}"></span>
-									<span style="font-style: inherit; " th:text="${rank.pdl}"></span> PDL
-									<p></p>
-									<span style="font-style: inherit; " th:text="${rank.wins}"></span> Wins
-									<span style="font-style: inherit;" th:text="${rank.losses}"></span>Losses
-									<p></p>
-									<span>Winrate <span style="font-style: inherit;" th:text="${rank.Winrate}">
-											</span> %</span>
-
-								</div>
-							</div>
-					</table>
-				</div>
-			</div>
-		</div>
-		</div>
-
-		<footer style="position: relative; padding-top: 50px; text-align: center" >
-			<nav class= "navbar" style="bottom:0;position:absolute; width: 100%;height: 15%;margin: 0; padding:0 ; left: 50%; transform: translateX(-50%);  margin-right: 10px;">
-				<ul style= "color: white;">
-					<li><a style= "color: white;" href="/">Home</a></li>
-					<li><a style= "color: white;" href="/about">About</a></li>
-					<li><a style= "color: white;" href="#">Contact</a></li>
-				</ul>
-				<p style="color: aliceblue; margin-top: 50px;">&copy; 2023 Shurima. Todos os direitos reservados.</p>
-			</nav>
-		</footer>
-	</body>
+      xmlns:xmls="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Shurima</title>
+        <link rel="stylesheet" href="/cs/st.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <style>
+             .h1,.h2, .h3, .h4,h1, h2, h3, h4 {color: blanchedalmond;}
+        </style>
+    </head>
+    <body>
+        <nav class="navbar">
+            <a href="/about"><button class="btn">About</button></a>
+            <form method="post">
+                <div class="row">
+                    <div class="col">
+                        <input class="form-control" type="text" placeholder=" Enter the nick of the summoner"/>
+                    </div>
+                        <button class="btn btn-light" type="submit">Search</button>
+                </div>
+            </form>
+            <a><button onclick="voltarPagina()" class="btn">Return</button></a>
+        </nav>
+        <div th:each="invocador : ${invocador}"> </div>
+        <script>
+            function voltarPagina() {
+                window.match.back();
+            }
+        </script>
+        <div class="card-display-total">
+            <div class="card-total" th:style="'background-position : right center; background-repeat : no-repeat; background-image: url(\'' + ${invocador.imageTopMasteries} + '\');' ">
+                <div class="row g-0">
+                    <div class="icone" th:style="'background-position : right center;  background-image: url(\'' + ${invocador.nameImage} + '\');'"></div>
+                    <div class="col-md-8">
+                        <div class="card-body-invocador">
+                            <h3><span th:text="${invocador.name}"></span></h3>
+                            <h4>Lvl <span th:text=" ${invocador.summonerLevel}"></span></h4>
+                        </div>
+                        <table>
+                            <tr th:each="rank : ${ranks}">
+                                <div class="card">
+                                    <img th:src="${rank.nameImageTier}">
+                                    <div class="card-body">
+                                        <div th:text="${rank.queue}"></div>
+                                        <span style="font-style: inherit; " th:text="${rank.tier}"></span>
+                                        <span style="font-style: inherit; " th:text="${rank.ranking}"></span>
+                                        <span style="font-style: inherit; " th:text="${rank.pdl}"></span> PDL
+                                        <p></p>
+                                        <span style="font-style: inherit; " th:text="${rank.wins}"></span> Wins
+                                        <span style="font-style: inherit; " th:text="${rank.losses}"></span>Losses
+                                        <p></p>
+                                        <span>Winrate <span style="font-style: inherit;" th:text="${rank.Winrate}"></span> %</span>
+                                    </div>
+                                </div>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card-displey1">
+                <table>
+                    <tr th:each="match: ${matchs}">
+                        <div class="card-displey2" >
+                            <div class="card-perfil2" th:style="'background-image: url(\'' + ${match.getUrlImgChampion()} + '\');'">
+                                <div class="separador-teste">
+                                    <h3 class="queue" th:text="${match.getQueue()}"></h3>
+                                    <h2 class="win-lose" th:text="${match.getResulMatch()}"></h2>
+                                    <h2 class="freg" th:text="${match.getFregFormat()}"></h2>
+                                    <h2 class="kda" th:text="'KDA: ' + ${match.getKdaFormat()}"> </h2>
+                                    <h2 class="farm" th:text="${match.getFarm()} + ' cs'"> </h2>
+                                    <h2 class="tempo" th:text="${match.getTimeDuration()}"></h2>
+                                    <h1 class="nome" th:text="${match.getNameChampion()}"></h1>
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <footer>
+            <nav class= "navbar">
+                <ul style= "color: white;">
+                    <li><a style= "color: white;" href="/">Home</a></li>
+                    <li><a style= "color: white;" href="/about">About</a></li>
+                    <li><a style= "color: white;" href="#">Contact</a></li>
+                </ul>
+                <p style="margin-left: 70%">&copy; 2023 Shurima. Todos os direitos reservados.</p>
+            </nav>
+        </footer>
+    </body>
 </html>

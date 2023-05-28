@@ -31,8 +31,8 @@ public class IndexController {
     }
     
     @PostMapping("/")
-	public String findByNameInvocador(String name) throws JsonProcessingException {
-		SummonerDTO invocador = new SummonerDTO();
+	public String findByNameInvocador(String name) {
+		SummonerDTO invocador;
     	
 		if(name == "") {
 			return "redirect:/";
@@ -45,13 +45,7 @@ public class IndexController {
 		
 		return "redirect:/" + name;
 	}
-    
-    @GetMapping("/teste")
-    public ResponseEntity<List<Integer>> freeWeek() throws JsonMappingException, JsonProcessingException{
-    	List<Integer> list = is.getFreeWeek();
-    	return ResponseEntity.ok(list);
-    	
-    }
+
 	@GetMapping("/")
 	public ModelAndView showIconFreeWeek() throws JsonProcessingException {
 		ModelAndView mv = new ModelAndView("index");

@@ -1,0 +1,154 @@
+.card-total{
+    background-color: gray ;
+    width: 30%;
+    height: 800px;
+    display: flex;
+    position: relative;
+}
+
+.navbar{
+    background-color: gray;
+    width: 100%;
+    margin: 0.2%;
+    display: flex;
+}
+
+.icone{
+    position: absolute;
+    width: 30%;
+    height: 15%;
+    left: 5%;
+    top: 6%;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-body-invocador{
+    position: absolute;
+    top: 8%;
+    left: 27%;
+}
+
+.card-body{
+    position: absolute;
+    top: 15%;
+}
+
+
+
+.card{
+    position: absolute;
+    top: 30%;
+    width: 80%;
+    height: 30%;
+}
+
+
+.card-display1{
+    display: inline-block;
+}
+
+.card-display-total {
+    display: flex;
+}
+
+.card-display2{
+    display: block;
+}
+
+
+.card-perfil2 {
+    width: 790%;
+    height: 200px;
+    border-radius: 15px;
+    margin: 1%;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+
+.separador-teste{
+    width: 40%;
+    height: 0;
+    border-right: 120px solid transparent;
+    border-bottom: 200px solid gray;
+    opacity: 85%;
+}
+
+body{
+    background-image: url('../img/ionia.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.freg{
+    position: absolute;
+    left: 28%;
+    bottom: 30%;
+}
+
+.tempo{
+    position: absolute;
+    bottom: 2%;
+    right: 87%;
+}
+
+.win-lose{
+    position: absolute;
+    left: 5%;
+    bottom: 38%;
+}
+
+.kda{
+    position: absolute;
+    right: 37%;
+    left: 28%;
+    bottom: 55%;
+    font-size: 100%;
+}
+
+.queue{
+    position: absolute;
+    left: 4%;
+}
+
+.farm{
+    position: absolute;
+    right: 39%;
+    left: 30%;
+    bottom: 20%;
+    font-size: 100%;
+}
+.nome{
+    position: absolute;
+    right: 37%;
+    left: 25%;
+    bottom: 70%;
+}
+
+/*   pagina index */
+
+.img_fundo{
+    background-image: url(../img/kat.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+
+}
+
+.h2-rotation {
+    text-align: center;
+    color: white;
+}
+table.center {
+    margin: auto;
+}
+
+.foot_dir{
+    position: relative;
+    padding: 20px;
+    text-align: center;
+}
+

@@ -13,12 +13,8 @@ import com.peenc.consultalol.models.ChampionInfoIds;
 
 @Service
 public class IndexService {
-		
-	
 	@Autowired
 	ApiService service;
-	@Autowired
-	MatchService matchService;
 
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -26,7 +22,7 @@ public class IndexService {
 	private String URL_ICON_CHAMP = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/";
 	private String URL_FREEWEEK = "https://br1.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=";
 	
-	public List<Integer> getFreeWeek() throws JsonMappingException, JsonProcessingException {
+	public List<Integer> getFreeWeek() throws  JsonProcessingException {
 		String jsonResponse = service.getJsonFromExternalApi(URL_FREEWEEK + service.getKey());
 		ChampionInfoIds cii = objectMapper.readValue(jsonResponse, ChampionInfoIds.class);
 		return cii.getFreeChampionIds();

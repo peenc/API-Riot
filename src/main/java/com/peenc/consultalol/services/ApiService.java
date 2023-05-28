@@ -27,27 +27,7 @@ public class ApiService {
         String jsonResponse = restTemplate.getForObject(url, String.class);
         return jsonResponse;
     }
-    public String getJsonFromHistory(String url)  {
-        try {
-            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-            connection.setRequestMethod("GET");
-            if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder response = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-                reader.close();
-                String json = response.toString();
-                connection.disconnect();
-                return json;
-            }
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
+
     public String getKey() {
     	return API_KEY;
     }

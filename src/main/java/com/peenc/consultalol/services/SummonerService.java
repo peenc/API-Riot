@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.peenc.consultalol.modelsDTO.MatchDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -15,6 +17,7 @@ import com.peenc.consultalol.models.Summoner;
 import com.peenc.consultalol.modelsDTO.ChampionMasteryDTO;
 import com.peenc.consultalol.modelsDTO.LeagueEntryDTO;
 import com.peenc.consultalol.modelsDTO.SummonerDTO;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class SummonerService {
@@ -34,64 +37,58 @@ public class SummonerService {
 	private String URL_BY_SPLASHES = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-splashes/";
 
 
-	public SummonerDTO getSummonerDTO(String name) throws JsonMappingException, JsonProcessingException {
+	public SummonerDTO getSummonerDTO(String name) throws  JsonProcessingException {
 		String jsonResponse = service.getJsonFromExternalApi(URL_BY_Name + name + "?api_key=" + service.getKey());
 		SummonerDTO summoner = objectMapper.readValue(jsonResponse, SummonerDTO.class);
 		return summoner;
 	}
 
-	public List<LeagueEntryDTO> getLeague(String id) throws JsonMappingException, JsonProcessingException {
+	public List<LeagueEntryDTO> getLeague(String id) throws JsonProcessingException {
 		String jsonResponse = service.getJsonFromExternalApi(URL_BY_SUMMONER + id + "?api_key=" + service.getKey());
 		LeagueEntryDTO[] ledto = objectMapper.readValue(jsonResponse, LeagueEntryDTO[].class);
 		List<LeagueEntryDTO> list = Arrays.asList(ledto);
 		return list;
 	}
 
-	public List<Rank> getSummonerRank(String name) throws JsonMappingException, JsonProcessingException {
+	public List<Rank> getSummonerRank(String name) throws JsonProcessingException {
 		List<Rank> list = new ArrayList<>();
 		Rank rankFlex = new Rank();
 		Rank rankSoloDuo = new Rank();
 		SummonerDTO summoner = getSummonerDTO(name);
-
 		List<LeagueEntryDTO> league = getLeague(summoner.getId());
-
 		try {
-			rankSoloDuo.setTier(league.get(1).getTier());
-			rankSoloDuo.setRanking(league.get(1).getRank());
-			rankSoloDuo.setPdl(league.get(1).getLeaguePoints());
-			rankSoloDuo.setQueue(league.get(1).getQueueType().replace("_", " "));
-			rankSoloDuo.setWins(league.get(1).getWins());
-			rankSoloDuo.setLosses(league.get(1).getLosses());
-			rankSoloDuo.setNameImageTier(URL_BY_ICON_RANK + league.get(1).getTier().toLowerCase() + ".png");
-			rankSoloDuo.Winrate();
-			if (league.get(1).getMiniSeries() != null) {
-				rankFlex.setMiniSeries(league.get(1).getMiniSeries());
+			rankSoloDuo = buildRank(rankSoloDuo,league,0);
 
+			if (league.get(1).getMiniSeries() != null) {
+				rankSoloDuo.setMiniSeries(league.get(1).getMiniSeries());
 			}
 			list.add(rankSoloDuo);
 		} catch (ArrayIndexOutOfBoundsException e) {
-
+			System.out.println(e);
 		}
-
 		try {
-			rankFlex.setTier(league.get(0).getTier());
-			rankFlex.setRanking(league.get(0).getRank());
-			rankFlex.setPdl(league.get(0).getLeaguePoints());
-			rankFlex.setWins(league.get(0).getWins());
-			rankFlex.setLosses(league.get(0).getLosses());
-
-			rankFlex.setQueue(league.get(0).getQueueType().replace("_", " "));
-			rankFlex.setNameImageTier(URL_BY_ICON_RANK + league.get(0).getTier().toLowerCase() + ".png");
-			rankFlex.Winrate();
+			rankFlex = buildRank(rankFlex, league,1);
 			if (league.get(0).getMiniSeries() != null) {
 				rankFlex.setMiniSeries(league.get(0).getMiniSeries());
 			}
 			list.add(rankFlex);
 		} catch (ArrayIndexOutOfBoundsException e) {
-
+			System.out.println(e);
 		}
-
 		return list;
+	}
+
+
+	private Rank buildRank(Rank rank, List<LeagueEntryDTO> league ,int soloOrFlex) {
+		rank.setTier(league.get(soloOrFlex).getTier());
+		rank.setRanking(league.get(soloOrFlex).getRank());
+		rank.setPdl(league.get(soloOrFlex).getLeaguePoints());
+		rank.setWins(league.get(soloOrFlex).getWins());
+		rank.setLosses(league.get(soloOrFlex).getLosses());
+		rank.setQueue(league.get(soloOrFlex).getQueueType().replace("_", " "));
+		rank.setNameImageTier(URL_BY_ICON_RANK + league.get(soloOrFlex).getTier().toLowerCase() + ".png");
+		rank.Winrate();
+		return rank;
 	}
 
 	public String getUrlImage(String name) throws JsonProcessingException {
@@ -100,34 +97,33 @@ public class SummonerService {
 	}
 
 	public Summoner getSummoner(String name) throws JsonProcessingException {
-
 		SummonerDTO summonerDTO = getSummonerDTO(name);
 		Summoner summoner = new Summoner();
+		buildSummoner(name, summonerDTO, summoner);
+		List<Rank> list = getSummonerRank(name);
+		if (!list.isEmpty()) {
+			summoner.setRanks(list);
+		}
+		return summoner;
+	}
 
+	private void buildSummoner(String name, SummonerDTO summonerDTO, Summoner summoner) throws JsonProcessingException {
 		summoner.setNameImage(getUrlImage(name));
 		summoner.setId(summonerDTO.getId());
 		summoner.setName(summonerDTO.getName());
 		summoner.setSummonerLevel(summonerDTO.getSummonerLevel());
 		summoner.setImageTopMasteries(splashArtChampionTopMasteries(listIdChampsMasteries(summoner.getId())));
 		summoner.setPuuid(summonerDTO.getPuuid());
-
-		List<Rank> list = getSummonerRank(name);
-
-		if (!list.isEmpty()) {
-			summoner.setRanks(list);
-		}
-
-		return summoner;
 	}
-	
-	public List<String> listMatchs(String puuid) throws JsonMappingException, JsonProcessingException{
-		String jsonResponse = service.getJsonFromExternalApi(URL_BY_MATCHS + puuid + "/ids?start=0&count=20&api_key=" + service.getKey());
-		String[] string = objectMapper.readValue(jsonResponse, String[].class);
-		List<String> matchs = Arrays.asList(string);
+
+	public List<String> listMatchs(String puuid){
+		String stringJson = URL_BY_MATCHS + puuid + "/ids?start=0&count=20&api_key=" + service.getKey();
+		String[] strings = new RestTemplate().exchange(stringJson, HttpMethod.GET, null, String[].class).getBody();
+		List<String> matchs = Arrays.asList(strings);
 		return matchs;
 	}
 	
-	public List<Long> listIdChampsMasteries(String id) throws JsonMappingException, JsonProcessingException{
+	public List<Long> listIdChampsMasteries(String id) throws  JsonProcessingException{
 		String jsonResponse = service.getJsonFromExternalApi(URL_BY_CHAMPSMASTERIES + id  + "/top?api_key=" + service.getKey());
 		ChampionMasteryDTO[] cmdto = objectMapper.readValue(jsonResponse, ChampionMasteryDTO[].class);
 		List<ChampionMasteryDTO> listCmdto = Arrays.asList(cmdto);
